@@ -1,0 +1,15 @@
+{
+  "name": "hypersync-fuel-client-darwin-universal",
+  "version": "0.0.0",
+  "os": [
+    "darwin"
+  ],
+  "main": "hypersync-fuel-client.darwin-universal.node",
+  "files": [
+    "hypersync-fuel-client.darwin-universal.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  }
+}
