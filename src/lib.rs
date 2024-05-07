@@ -1,4 +1,6 @@
-#![deny(clippy::all)]
+mod config;
+mod query;
+mod types;
 
 #[macro_use]
 extern crate napi_derive;
