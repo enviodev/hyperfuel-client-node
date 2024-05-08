@@ -7,10 +7,7 @@ mod types;
 
 use config::Config;
 use query::Query;
-use response::{LogResponse, QueryResponseArrow, QueryResponseTyped};
-use skar_format_fuel::Hex;
-use tokio::sync::mpsc;
-use types::{Block, Transaction};
+use response::{LogResponse, QueryResponseTyped};
 
 #[macro_use]
 extern crate napi_derive;
@@ -178,64 +175,6 @@ impl HypersyncClient {
             .preset_query_get_logs(emitting_contracts_args, from_block, to_block)
             .await
             .context("get logs")?;
-        Ok(resp.into())
-    }
-
-    /// Send a query request to the source hypersync instance.
-    ///
-    /// Returns a query response which contains arrow data.
-    ///
-    /// NOTE: this query returns loads all transactions that your match your receipt, input, or output selections
-    /// and applies the field selection to all these loaded transactions.  So your query will return the data you
-    /// want plus additional data from the loaded transactions.  This functionality is in case you want to associate
-    /// receipts, inputs, or outputs with eachother.
-    #[napi]
-    pub async fn get_arrow_data(&self, query: Query) -> napi::Result<QueryResponseArrow> {
-        self.get_arrow_data_impl(query)
-            .await
-            .map_err(|e| napi::Error::from_reason(format!("{:?}", e)))
-    }
-
-    async fn get_arrow_data_impl(&self, query: Query) -> Result<QueryResponseArrow> {
-        let query = query.try_convert().context("parse query")?;
-        let resp = self
-            .inner
-            .get_arrow_data(&query)
-            .await
-            .context("get arrow data")?;
-
-        Ok(resp.into())
-    }
-
-    /// Send a query request to the source hypersync instance.
-    /// On an error from the source hypersync instance, sleeps for
-    /// 1 second (increasing by 1 each failure up to max of 5 seconds)
-    /// and retries query until success.
-    ///
-    /// Returns a query response which contains arrow data.
-    ///
-    /// NOTE: this query returns loads all transactions that your match your receipt, input, or output selections
-    /// and applies the field selection to all these loaded transactions.  So your query will return the data you
-    /// want plus additional data from the loaded transactions.  This functionality is in case you want to associate
-    /// receipts, inputs, or outputs with eachother.
-    #[napi]
-    pub async fn get_arrow_data_with_retry(
-        &self,
-        query: Query,
-    ) -> napi::Result<QueryResponseArrow> {
-        self.get_arrow_data_with_retry_impl(query)
-            .await
-            .map_err(|e| napi::Error::from_reason(format!("{:?}", e)))
-    }
-
-    async fn get_arrow_data_with_retry_impl(&self, query: Query) -> Result<QueryResponseArrow> {
-        let query = query.try_convert().context("parse query")?;
-        let resp = self
-            .inner
-            .get_arrow_data_with_retry(&query)
-            .await
-            .context("get arrow data")?;
-
         Ok(resp.into())
     }
 }
