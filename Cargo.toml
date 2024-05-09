@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "hyperfuel-client"
-version = "0.0.3"
+version = "0.0.4"
 
 [lib]
 crate-type = ["cdylib"]
@@ -22,7 +22,7 @@ env_logger = "0.11"
 faster-hex = "0.9.0"
 
 skar-client-fuel = "0.0.7"
-skar-net-types-fuel = "0.0.3"
+skar-net-types-fuel = "0.0.4"
 skar-format-fuel = "0.0.4"
 
 [build-dependencies]

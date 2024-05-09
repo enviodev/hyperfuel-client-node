@@ -307,6 +307,7 @@ jobs:
         shell: bash
       - name: Publish
         run: |
+          sleep 30
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
           npm publish --access public
         env:
