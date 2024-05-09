@@ -13,29 +13,29 @@ use response::{LogResponse, QueryResponseTyped};
 extern crate napi_derive;
 
 #[napi]
-pub struct HypersyncClient {
+pub struct HyperfuelClient {
     inner: skar_client_fuel::Client,
 }
 
 #[napi]
-impl HypersyncClient {
+impl HyperfuelClient {
     /// Create a new client with given config
     #[napi]
-    pub fn new(cfg: Config) -> napi::Result<HypersyncClient> {
+    pub fn new(cfg: Config) -> napi::Result<HyperfuelClient> {
         env_logger::try_init().ok();
 
         Self::new_impl(cfg).map_err(|e| napi::Error::from_reason(format!("{:?}", e)))
     }
 
-    fn new_impl(cfg: Config) -> Result<HypersyncClient> {
+    fn new_impl(cfg: Config) -> Result<HyperfuelClient> {
         let cfg = cfg.try_convert().context("parse config")?;
 
         let inner = skar_client_fuel::Client::new(cfg).context("build client")?;
 
-        Ok(HypersyncClient { inner })
+        Ok(HyperfuelClient { inner })
     }
 
-    /// Get the height of the source hypersync instance
+    /// Get the height of the source hyperfuel instance
     #[napi]
     pub async fn get_height(&self) -> napi::Result<i64> {
         let height = self
@@ -47,9 +47,9 @@ impl HypersyncClient {
         Ok(height.try_into().unwrap())
     }
 
-    /// Get the height of the source hypersync instance
+    /// Get the height of the source hyperfuel instance
     /// Internally calls get_height.
-    /// On an error from the source hypersync instance, sleeps for
+    /// On an error from the source hyperfuel instance, sleeps for
     /// 1 second (increasing by 1 each failure up to max of 5 seconds)
     /// and retries query until success.
     #[napi]
@@ -84,7 +84,7 @@ impl HypersyncClient {
         Ok(())
     }
 
-    /// Send a query request to the source hypersync instance.
+    /// Send a query request to the source hyperfuel instance.
     ///
     /// Returns a query response which contains typed data.
     ///
@@ -105,7 +105,7 @@ impl HypersyncClient {
         Ok(resp.into())
     }
 
-    /// Send a query request to the source hypersync instance.
+    /// Send a query request to the source hyperfuel instance.
     ///
     /// Returns a query response that which contains structured data that doesn't include any inputs, outputs,
     /// and receipts that don't exactly match the query's input, outout, or receipt selection.
@@ -126,7 +126,7 @@ impl HypersyncClient {
         Ok(resp.into())
     }
 
-    /// Send a query request to the source hypersync instance.
+    /// Send a query request to the source hyperfuel instance.
     ///
     /// Returns all log and logdata receipts of logs emitted by any of the specified contracts
     /// within the block range.

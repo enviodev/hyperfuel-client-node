@@ -381,15 +381,15 @@ export interface Output {
   /** for ContractCreated type: The contract that was created. */
   contract?: string
 }
-export class HypersyncClient {
+export class HyperfuelClient {
   /** Create a new client with given config */
-  static new(cfg: Config): HypersyncClient
-  /** Get the height of the source hypersync instance */
+  static new(cfg: Config): HyperfuelClient
+  /** Get the height of the source hyperfuel instance */
   getHeight(): Promise<number>
   /**
-   * Get the height of the source hypersync instance
+   * Get the height of the source hyperfuel instance
    * Internally calls get_height.
-   * On an error from the source hypersync instance, sleeps for
+   * On an error from the source hyperfuel instance, sleeps for
    * 1 second (increasing by 1 each failure up to max of 5 seconds)
    * and retries query until success.
    */
@@ -401,7 +401,7 @@ export class HypersyncClient {
    */
   createParquetFolder(query: Query, path: string): Promise<void>
   /**
-   * Send a query request to the source hypersync instance.
+   * Send a query request to the source hyperfuel instance.
    *
    * Returns a query response which contains typed data.
    *
@@ -412,14 +412,14 @@ export class HypersyncClient {
    */
   getData(query: Query): Promise<QueryResponseTyped>
   /**
-   * Send a query request to the source hypersync instance.
+   * Send a query request to the source hyperfuel instance.
    *
    * Returns a query response that which contains structured data that doesn't include any inputs, outputs,
    * and receipts that don't exactly match the query's input, outout, or receipt selection.
    */
   getSelectedData(query: Query): Promise<QueryResponseTyped>
   /**
-   * Send a query request to the source hypersync instance.
+   * Send a query request to the source hyperfuel instance.
    *
    * Returns all log and logdata receipts of logs emitted by any of the specified contracts
    * within the block range.
