@@ -5,6 +5,15 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@envio-dev/hyperfuel-client@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@envio-dev/hyperfuel-client@workspace:."
+  dependencies:
+    "@napi-rs/cli": "npm:^2.18.3"
+    ava: "npm:^6.0.1"
+  languageName: unknown
+  linkType: soft
+
 "@mapbox/node-pre-gyp@npm:^1.0.5":
   version: 1.0.11
   resolution: "@mapbox/node-pre-gyp@npm:1.0.11"
@@ -749,15 +758,6 @@ __metadata:
   checksum: 10c0/6dd639f03434003577c62b27cafdb864784ef19b2de430d8ae2a1d45e31c4fd60719e5637b44db1a88a046934307da7089e03d6089ec3ddacc1189d8de8897d1
   languageName: node
   linkType: hard
-
-"@envio-dev/hyperfuel-client@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@envio-dev/hyperfuel-client@workspace:."
-  dependencies:
-    "@napi-rs/cli": "npm:^2.18.3"
-    ava: "npm:^6.0.1"
-  languageName: unknown
-  linkType: soft
 
 "ignore-by-default@npm:^2.1.0":
   version: 2.1.0
