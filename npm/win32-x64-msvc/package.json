@@ -1,5 +1,5 @@
 {
-  "name": "@envio-dev/hyperfuel-client-win32-x64-msvc",
+  "name": "hyperfuel-client-win32-x64-msvc",
   "version": "0.0.6",
   "os": [
     "win32"
