@@ -1,6 +1,6 @@
 {
-  "name": "hyperfuel-client",
-  "version": "0.0.5",
+  "name": "@envio-dev/hyperfuel-client",
+  "version": "0.0.6",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
