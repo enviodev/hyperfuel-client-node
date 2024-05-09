@@ -1,3 +1,3 @@
 # WIP
 
-# hypersync-fuel-client-node
+# hyperfuel-client-node

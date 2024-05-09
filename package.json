@@ -1,10 +1,10 @@
 {
-  "name": "hypersync-fuel-client",
+  "name": "hyperfuel-client",
   "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
-    "name": "hypersync-fuel-client",
+    "name": "hyperfuel-client",
     "triples": {
       "additional": [
         "aarch64-apple-darwin",
