@@ -1,4 +1,4 @@
-import { HyperfuelClient, Query } from "hyperfuel-client";
+import { HyperfuelClient, Query } from "@envio-dev/hyperfuel-client";
 
 async function main() {
   // Create hyperfuel client using the hypersync-fuel endpoint

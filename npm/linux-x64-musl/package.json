@@ -1,5 +1,5 @@
 {
-  "name": "hyperfuel-client-linux-x64-musl",
+  "name": "@envio-dev/hyperfuel-client-linux-x64-musl",
   "version": "0.0.4",
   "os": [
     "linux"

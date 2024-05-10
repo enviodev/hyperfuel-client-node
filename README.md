@@ -1,4 +1,4 @@
-# hyperfuel-client-node
+# @envio-dev/hyperfuel-client-node
 
 Python package for [Envio's](https://envio.dev/) hyperfuel client written in Rust.
 

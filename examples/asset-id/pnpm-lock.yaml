@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@envio-dev/hypersync-client':
+  '@envio-dev/hyperfuel-client':
     specifier: ../..
     version: link:../..
 
