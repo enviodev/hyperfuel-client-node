@@ -1,4 +1,4 @@
-use skar_format_fuel::Hex;
+use hyperfuel_format::Hex;
 
 use crate::types::{as_i64, Block, Input, Output, Receipt, Transaction};
 
@@ -27,8 +27,8 @@ pub struct QueryResponseDataTyped {
     pub outputs: Vec<Output>,
 }
 
-impl From<skar_client_fuel::QueryResponseTyped> for QueryResponseTyped {
-    fn from(r: skar_client_fuel::QueryResponseTyped) -> Self {
+impl From<hyperfuel_client::QueryResponseTyped> for QueryResponseTyped {
+    fn from(r: hyperfuel_client::QueryResponseTyped) -> Self {
         let archive_height = r.archive_height.map(|u| u as i64);
         let next_block = r.next_block as i64;
         let total_execution_time = r.total_execution_time as i64;
@@ -88,8 +88,8 @@ pub struct LogContext {
     pub data: Option<String>,
 }
 
-impl From<skar_client_fuel::LogResponse> for LogResponse {
-    fn from(r: skar_client_fuel::LogResponse) -> Self {
+impl From<hyperfuel_client::LogResponse> for LogResponse {
+    fn from(r: hyperfuel_client::LogResponse) -> Self {
         let archive_height = r.archive_height.map(|h| h as i64);
         let next_block = r.next_block as i64;
         let total_execution_time = r.total_execution_time as i64;

@@ -14,7 +14,7 @@ extern crate napi_derive;
 
 #[napi]
 pub struct HyperfuelClient {
-    inner: skar_client_fuel::Client,
+    inner: hyperfuel_client::Client,
 }
 
 #[napi]
@@ -30,7 +30,7 @@ impl HyperfuelClient {
     fn new_impl(cfg: Config) -> Result<HyperfuelClient> {
         let cfg = cfg.try_convert().context("parse config")?;
 
-        let inner = skar_client_fuel::Client::new(cfg).context("build client")?;
+        let inner = hyperfuel_client::Client::new(cfg).context("build client")?;
 
         Ok(HyperfuelClient { inner })
     }

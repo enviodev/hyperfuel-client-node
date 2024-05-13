@@ -1,7 +1,7 @@
 import { HyperfuelClient, Query } from "@envio-dev/hyperfuel-client";
 
 async function main() {
-  // Create hyperfuel client using the hypersync-fuel endpoint
+  // Create hyperfuel client using the hyperfuel endpoint
   const client = HyperfuelClient.new({
     url: "https://fuel-15.hypersync.xyz"
   });

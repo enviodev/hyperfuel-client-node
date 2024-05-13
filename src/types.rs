@@ -1,4 +1,4 @@
-use skar_format_fuel::{Hex, UInt};
+use hyperfuel_format::{Hex, UInt};
 
 /// The block header contains metadata about a certain block.
 
@@ -239,8 +239,8 @@ pub struct Output {
     pub contract: Option<String>,
 }
 
-impl From<skar_format_fuel::BlockHeader> for Block {
-    fn from(b: skar_format_fuel::BlockHeader) -> Self {
+impl From<hyperfuel_format::BlockHeader> for Block {
+    fn from(b: hyperfuel_format::BlockHeader) -> Self {
         Self {
             id: b.id.encode_hex(),
             da_height: as_i64(b.da_height),
@@ -256,8 +256,8 @@ impl From<skar_format_fuel::BlockHeader> for Block {
     }
 }
 
-impl From<skar_format_fuel::Transaction> for Transaction {
-    fn from(t: skar_format_fuel::Transaction) -> Self {
+impl From<hyperfuel_format::Transaction> for Transaction {
+    fn from(t: hyperfuel_format::Transaction) -> Self {
         Self {
             block_height: as_i64(t.block_height),
             id: t.id.encode_hex(),
@@ -302,8 +302,8 @@ impl From<skar_format_fuel::Transaction> for Transaction {
     }
 }
 
-impl From<skar_format_fuel::Receipt> for Receipt {
-    fn from(r: skar_format_fuel::Receipt) -> Self {
+impl From<hyperfuel_format::Receipt> for Receipt {
+    fn from(r: hyperfuel_format::Receipt) -> Self {
         Self {
             receipt_index: as_i64(r.receipt_index),
             root_contract_id: r.root_contract_id.map(|d| d.encode_hex()),
@@ -340,8 +340,8 @@ impl From<skar_format_fuel::Receipt> for Receipt {
     }
 }
 
-impl From<skar_format_fuel::Input> for Input {
-    fn from(i: skar_format_fuel::Input) -> Self {
+impl From<hyperfuel_format::Input> for Input {
+    fn from(i: hyperfuel_format::Input) -> Self {
         Self {
             tx_id: i.tx_id.encode_hex(),
             block_height: as_i64(i.block_height),
@@ -367,8 +367,8 @@ impl From<skar_format_fuel::Input> for Input {
     }
 }
 
-impl From<skar_format_fuel::Output> for Output {
-    fn from(r: skar_format_fuel::Output) -> Self {
+impl From<hyperfuel_format::Output> for Output {
+    fn from(r: hyperfuel_format::Output) -> Self {
         Self {
             tx_id: r.tx_id.encode_hex(),
             block_height: as_i64(r.block_height),
