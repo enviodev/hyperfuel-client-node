@@ -158,14 +158,16 @@ export interface Block {
   id: string
   /** The block height for the data availability layer up to which (inclusive) input messages are processed. */
   daHeight: number
+  consensusParametersVersion: number
+  stateTransitionBytecodeVersion: number
   /** The number of transactions in the block. */
   transactionsCount: string
   /** The number of receipt messages in the block. */
   messageReceiptCount: string
   /** The merkle root of the transactions in the block. */
   transactionsRoot: string
-  /** The merkle root of the receipt messages in the block. */
-  messageReceiptRoot: string
+  messageOutboxRoot: string
+  eventInboxRoot: string
   /** The block height. */
   height: number
   /** The merkle root of all previous consensus header Stringes (not including this block). */
@@ -200,16 +202,18 @@ export interface Transaction {
   inputContractTxPointerTxIndex?: number
   /** The contract id for a contract used for the transaction input. */
   inputContract?: string
-  /** The gas price for the transaction. */
-  gasPrice?: number
-  /** The gas limit for the transaction. */
-  gasLimit?: number
+  policiesTip?: number
+  policiesWitnessLimit?: number
+  policiesMaturity?: number
+  policiesMaxFee?: number
+  scriptGasLimit?: number
   /** The minimum block height that the transaction can be included at. */
   maturity?: number
   /** The amount minted in the transaction. */
   mintAmount?: number
   /** The asset ID for coins minted in the transaction. */
   mintAssetId?: string
+  mintGasPrice?: number
   /** The location of the transaction in the block. */
   txPointerBlockHeight?: number
   txPointerTxIndex?: number
@@ -240,8 +244,13 @@ export interface Transaction {
   scriptData?: string
   /** The witness index of contract bytecode. */
   bytecodeWitnessIndex?: number
-  /** The length of the transaction bytecode. */
-  bytecodeLength?: number
+  bytecodeRoot?: string
+  subsectionIndex?: number
+  subsectionsNumber?: number
+  proofSet?: string
+  consensusParametersUpgradePurposeWitnessIndex?: number
+  consensusParametersUpgradePurposeChecksum?: string
+  stateTransitionUpgradePurposeRoot?: string
   /** The salt value for the transaction. */
   salt?: string
 }
