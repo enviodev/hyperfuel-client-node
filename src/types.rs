@@ -1,4 +1,5 @@
 use hyperfuel_format::{Hex, UInt};
+use napi::bindgen_prelude::BigInt;
 
 /// The block header contains metadata about a certain block.
 
@@ -109,7 +110,7 @@ pub struct Transaction {
 
 /// An object representing all possible types of receipts.
 #[napi(object)]
-#[derive(Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Debug, Default, Clone)]
 pub struct Receipt {
     /// Index of the receipt in the block
     pub receipt_index: i64,
@@ -128,33 +129,33 @@ pub struct Receipt {
     /// The recipient address
     pub to_address: Option<String>,
     /// The amount of coins transferred.
-    pub amount: Option<String>,
+    pub amount: Option<BigInt>,
     /// The asset id of the coins transferred.
     pub asset_id: Option<String>,
     /// The gas used for the transaction.
     pub gas: Option<i64>,
     /// The first parameter for a CALL receipt type, holds the function selector.
-    pub param1: Option<String>,
+    pub param1: Option<BigInt>,
     /// The second parameter for a CALL receipt type, typically used for the user-specified input to the ABI function being selected.
-    pub param2: Option<String>,
+    pub param2: Option<BigInt>,
     /// The value of registers at the end of execution, used for debugging.
-    pub val: Option<String>,
+    pub val: Option<BigInt>,
     /// The value of the pointer register, used for debugging.
-    pub ptr: Option<String>,
+    pub ptr: Option<BigInt>,
     /// A 32-byte String of MEM[$rC, $rD]. The syntax MEM[x, y] means the memory range starting at byte x, of length y bytes.
     pub digest: Option<String>,
     /// The decimal string representation of an 8-bit unsigned integer for the panic reason. Only returned if the receipt type is PANIC.
     pub reason: Option<i64>,
     /// The value of register $rA.
-    pub ra: Option<String>,
+    pub ra: Option<BigInt>,
     /// The value of register $rB.
-    pub rb: Option<String>,
+    pub rb: Option<BigInt>,
     /// The value of register $rC.
-    pub rc: Option<String>,
+    pub rc: Option<BigInt>,
     /// The value of register $rD.
-    pub rd: Option<String>,
+    pub rd: Option<BigInt>,
     /// The length of the receipt.
-    pub len: Option<String>,
+    pub len: Option<BigInt>,
     /// The type of receipt.
     pub receipt_type: u8,
     /// 0 if script exited successfully, any otherwise.
@@ -177,7 +178,7 @@ pub struct Receipt {
 
 /// An object representing all possible types of inputs.  InputCoin, InputContract, InputMessage
 #[napi(object)]
-#[derive(Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Debug, Default, Clone)]
 pub struct Input {
     /// transaction that this input originated from
     pub tx_id: String,
@@ -191,7 +192,7 @@ pub struct Input {
     pub owner: Option<String>,
     /// for InputCoin type: The amount of coins.
     /// for InputMessage type: The amount sent in the message.
-    pub amount: Option<String>,
+    pub amount: Option<BigInt>,
     /// The asset ID of the coins.
     pub asset_id: Option<String>,
     /// A pointer to the transaction whose output is being spent.
@@ -223,7 +224,7 @@ pub struct Input {
 
 /// An object representing all possible types of Outputs. CoinOutput, ContractOutput, ChangeOutput, VariableOutput, ContractCreated
 #[napi(object)]
-#[derive(Debug, Default, Clone, PartialEq, Eq)]
+#[derive(Debug, Default, Clone)]
 pub struct Output {
     /// transaction that this out originated from
     pub tx_id: String,
@@ -234,7 +235,7 @@ pub struct Output {
     /// The address the coins were sent to.
     pub to: Option<String>,
     /// The amount of coins in the output.
-    pub amount: Option<String>,
+    pub amount: Option<BigInt>,
     /// The asset id for the coins sent.
     pub asset_id: Option<String>,
     /// The index of the input.
@@ -339,20 +340,60 @@ impl From<hyperfuel_format::Receipt> for Receipt {
             is: r.is.map(|x| x.to_string()),
             to: r.to.map(|d| d.encode_hex()),
             to_address: r.to_address.map(|d| d.encode_hex()),
-            amount: r.amount.map(|x| x.to_string()),
+            amount: r.amount.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
             asset_id: r.asset_id.map(|d| d.encode_hex()),
             gas: r.gas.map(as_i64),
-            param1: r.param1.map(|x| x.to_string()),
-            param2: r.param2.map(|x| x.to_string()),
-            val: r.val.map(|x| x.to_string()),
-            ptr: r.ptr.map(|x| x.to_string()),
+            param1: r.param1.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            param2: r.param2.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            val: r.val.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            ptr: r.ptr.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
             digest: r.digest.map(|d| d.encode_hex()),
             reason: r.reason.map(as_i64),
-            ra: r.ra.map(|x| x.to_string()),
-            rb: r.rb.map(|x| x.to_string()),
-            rc: r.rc.map(|x| x.to_string()),
-            rd: r.rd.map(|x| x.to_string()),
-            len: r.len.map(|x| x.to_string()),
+            ra: r.ra.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            rb: r.rb.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            rc: r.rc.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            rd: r.rd.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
+            len: r.len.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
             receipt_type: r.receipt_type.to_u8(),
             result: r.result.map(as_i64),
             gas_used: r.gas_used.map(as_i64),
@@ -374,7 +415,11 @@ impl From<hyperfuel_format::Input> for Input {
             input_type: i.input_type.as_u8(),
             utxo_id: i.utxo_id.map(|d| d.encode_hex()),
             owner: i.owner.map(|d| d.encode_hex()),
-            amount: i.amount.map(|x| x.to_string()),
+            amount: i.amount.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
             asset_id: i.asset_id.map(|d| d.encode_hex()),
             tx_pointer_block_height: i.tx_pointer_block_height.map(as_i64),
             tx_pointer_tx_index: i.tx_pointer_tx_index.map(as_i64),
@@ -400,7 +445,11 @@ impl From<hyperfuel_format::Output> for Output {
             block_height: as_i64(r.block_height),
             output_type: r.output_type.as_u8(),
             to: r.to.map(|d| d.encode_hex()),
-            amount: r.amount.map(|x| x.to_string()),
+            amount: r.amount.map(|x| {
+                let as_u64: u64 = *x;
+                let big: BigInt = as_u64.into();
+                big
+            }),
             asset_id: r.asset_id.map(|d| d.encode_hex()),
             input_index: r.input_index.map(as_i64),
             balance_root: r.balance_root.map(|d| d.encode_hex()),

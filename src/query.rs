@@ -19,13 +19,13 @@ pub struct ReceiptSelection {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub contract_id: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ra: Option<Vec<i64>>,
+    pub ra: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rb: Option<Vec<i64>>,
+    pub rb: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rc: Option<Vec<i64>>,
+    pub rc: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rd: Option<Vec<i64>>,
+    pub rd: Option<Vec<String>>,
 }
 
 #[napi(object)]

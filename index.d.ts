@@ -19,10 +19,10 @@ export interface ReceiptSelection {
   sender?: Array<string>
   recipient?: Array<string>
   contractId?: Array<string>
-  ra?: Array<number>
-  rb?: Array<number>
-  rc?: Array<number>
-  rd?: Array<number>
+  ra?: Array<string>
+  rb?: Array<string>
+  rc?: Array<string>
+  rd?: Array<string>
 }
 export interface InputSelection {
   owner?: Array<string>
@@ -273,33 +273,33 @@ export interface Receipt {
   /** The recipient address */
   toAddress?: string
   /** The amount of coins transferred. */
-  amount?: string
+  amount?: bigint
   /** The asset id of the coins transferred. */
   assetId?: string
   /** The gas used for the transaction. */
   gas?: number
   /** The first parameter for a CALL receipt type, holds the function selector. */
-  param1?: string
+  param1?: bigint
   /** The second parameter for a CALL receipt type, typically used for the user-specified input to the ABI function being selected. */
-  param2?: string
+  param2?: bigint
   /** The value of registers at the end of execution, used for debugging. */
-  val?: string
+  val?: bigint
   /** The value of the pointer register, used for debugging. */
-  ptr?: string
+  ptr?: bigint
   /** A 32-byte String of MEM[$rC, $rD]. The syntax MEM[x, y] means the memory range starting at byte x, of length y bytes. */
   digest?: string
   /** The decimal string representation of an 8-bit unsigned integer for the panic reason. Only returned if the receipt type is PANIC. */
   reason?: number
   /** The value of register $rA. */
-  ra?: string
+  ra?: bigint
   /** The value of register $rB. */
-  rb?: string
+  rb?: bigint
   /** The value of register $rC. */
-  rc?: string
+  rc?: bigint
   /** The value of register $rD. */
-  rd?: string
+  rd?: bigint
   /** The length of the receipt. */
-  len?: string
+  len?: bigint
   /** The type of receipt. */
   receiptType: number
   /** 0 if script exited successfully, any otherwise. */
@@ -335,7 +335,7 @@ export interface Input {
    * for InputCoin type: The amount of coins.
    * for InputMessage type: The amount sent in the message.
    */
-  amount?: string
+  amount?: bigint
   /** The asset ID of the coins. */
   assetId?: string
   /** A pointer to the transaction whose output is being spent. */
@@ -375,7 +375,7 @@ export interface Output {
   /** The address the coins were sent to. */
   to?: string
   /** The amount of coins in the output. */
-  amount?: string
+  amount?: bigint
   /** The asset id for the coins sent. */
   assetId?: string
   /** The index of the input. */
