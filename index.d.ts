@@ -265,41 +265,41 @@ export interface Receipt {
   /** block that the receipt originated in */
   blockHeight: number
   /** The value of the program counter register $pc, which is the memory address of the current instruction. */
-  pc?: number
+  pc?: string
   /** The value of register $is, which is the pointer to the start of the currently-executing code. */
-  is?: number
+  is?: string
   /** The recipient contract */
   to?: string
   /** The recipient address */
   toAddress?: string
   /** The amount of coins transferred. */
-  amount?: number
+  amount?: string
   /** The asset id of the coins transferred. */
   assetId?: string
   /** The gas used for the transaction. */
   gas?: number
   /** The first parameter for a CALL receipt type, holds the function selector. */
-  param1?: number
+  param1?: string
   /** The second parameter for a CALL receipt type, typically used for the user-specified input to the ABI function being selected. */
-  param2?: number
+  param2?: string
   /** The value of registers at the end of execution, used for debugging. */
-  val?: number
+  val?: string
   /** The value of the pointer register, used for debugging. */
-  ptr?: number
+  ptr?: string
   /** A 32-byte String of MEM[$rC, $rD]. The syntax MEM[x, y] means the memory range starting at byte x, of length y bytes. */
   digest?: string
   /** The decimal string representation of an 8-bit unsigned integer for the panic reason. Only returned if the receipt type is PANIC. */
   reason?: number
   /** The value of register $rA. */
-  ra?: number
+  ra?: string
   /** The value of register $rB. */
-  rb?: number
+  rb?: string
   /** The value of register $rC. */
-  rc?: number
+  rc?: string
   /** The value of register $rD. */
-  rd?: number
+  rd?: string
   /** The length of the receipt. */
-  len?: number
+  len?: string
   /** The type of receipt. */
   receiptType: number
   /** 0 if script exited successfully, any otherwise. */
@@ -335,7 +335,7 @@ export interface Input {
    * for InputCoin type: The amount of coins.
    * for InputMessage type: The amount sent in the message.
    */
-  amount?: number
+  amount?: string
   /** The asset ID of the coins. */
   assetId?: string
   /** A pointer to the transaction whose output is being spent. */
@@ -375,7 +375,7 @@ export interface Output {
   /** The address the coins were sent to. */
   to?: string
   /** The amount of coins in the output. */
-  amount?: number
+  amount?: string
   /** The asset id for the coins sent. */
   assetId?: string
   /** The index of the input. */

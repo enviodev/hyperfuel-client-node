@@ -120,41 +120,41 @@ pub struct Receipt {
     /// block that the receipt originated in
     pub block_height: i64,
     /// The value of the program counter register $pc, which is the memory address of the current instruction.
-    pub pc: Option<i64>,
+    pub pc: Option<String>,
     /// The value of register $is, which is the pointer to the start of the currently-executing code.
-    pub is: Option<i64>,
+    pub is: Option<String>,
     /// The recipient contract
     pub to: Option<String>,
     /// The recipient address
     pub to_address: Option<String>,
     /// The amount of coins transferred.
-    pub amount: Option<i64>,
+    pub amount: Option<String>,
     /// The asset id of the coins transferred.
     pub asset_id: Option<String>,
     /// The gas used for the transaction.
     pub gas: Option<i64>,
     /// The first parameter for a CALL receipt type, holds the function selector.
-    pub param1: Option<i64>,
+    pub param1: Option<String>,
     /// The second parameter for a CALL receipt type, typically used for the user-specified input to the ABI function being selected.
-    pub param2: Option<i64>,
+    pub param2: Option<String>,
     /// The value of registers at the end of execution, used for debugging.
-    pub val: Option<i64>,
+    pub val: Option<String>,
     /// The value of the pointer register, used for debugging.
-    pub ptr: Option<i64>,
+    pub ptr: Option<String>,
     /// A 32-byte String of MEM[$rC, $rD]. The syntax MEM[x, y] means the memory range starting at byte x, of length y bytes.
     pub digest: Option<String>,
     /// The decimal string representation of an 8-bit unsigned integer for the panic reason. Only returned if the receipt type is PANIC.
     pub reason: Option<i64>,
     /// The value of register $rA.
-    pub ra: Option<i64>,
+    pub ra: Option<String>,
     /// The value of register $rB.
-    pub rb: Option<i64>,
+    pub rb: Option<String>,
     /// The value of register $rC.
-    pub rc: Option<i64>,
+    pub rc: Option<String>,
     /// The value of register $rD.
-    pub rd: Option<i64>,
+    pub rd: Option<String>,
     /// The length of the receipt.
-    pub len: Option<i64>,
+    pub len: Option<String>,
     /// The type of receipt.
     pub receipt_type: u8,
     /// 0 if script exited successfully, any otherwise.
@@ -191,7 +191,7 @@ pub struct Input {
     pub owner: Option<String>,
     /// for InputCoin type: The amount of coins.
     /// for InputMessage type: The amount sent in the message.
-    pub amount: Option<i64>,
+    pub amount: Option<String>,
     /// The asset ID of the coins.
     pub asset_id: Option<String>,
     /// A pointer to the transaction whose output is being spent.
@@ -234,7 +234,7 @@ pub struct Output {
     /// The address the coins were sent to.
     pub to: Option<String>,
     /// The amount of coins in the output.
-    pub amount: Option<i64>,
+    pub amount: Option<String>,
     /// The asset id for the coins sent.
     pub asset_id: Option<String>,
     /// The index of the input.
@@ -335,24 +335,24 @@ impl From<hyperfuel_format::Receipt> for Receipt {
             root_contract_id: r.root_contract_id.map(|d| d.encode_hex()),
             tx_id: r.tx_id.encode_hex(),
             block_height: as_i64(r.block_height),
-            pc: r.pc.map(as_i64),
-            is: r.is.map(as_i64),
+            pc: r.pc.map(|x| x.to_string()),
+            is: r.is.map(|x| x.to_string()),
             to: r.to.map(|d| d.encode_hex()),
             to_address: r.to_address.map(|d| d.encode_hex()),
-            amount: r.amount.map(as_i64),
+            amount: r.amount.map(|x| x.to_string()),
             asset_id: r.asset_id.map(|d| d.encode_hex()),
             gas: r.gas.map(as_i64),
-            param1: r.param1.map(as_i64),
-            param2: r.param2.map(as_i64),
-            val: r.val.map(as_i64),
-            ptr: r.ptr.map(as_i64),
+            param1: r.param1.map(|x| x.to_string()),
+            param2: r.param2.map(|x| x.to_string()),
+            val: r.val.map(|x| x.to_string()),
+            ptr: r.ptr.map(|x| x.to_string()),
             digest: r.digest.map(|d| d.encode_hex()),
             reason: r.reason.map(as_i64),
-            ra: r.ra.map(as_i64),
-            rb: r.rb.map(as_i64),
-            rc: r.rc.map(as_i64),
-            rd: r.rd.map(as_i64),
-            len: r.len.map(as_i64),
+            ra: r.ra.map(|x| x.to_string()),
+            rb: r.rb.map(|x| x.to_string()),
+            rc: r.rc.map(|x| x.to_string()),
+            rd: r.rd.map(|x| x.to_string()),
+            len: r.len.map(|x| x.to_string()),
             receipt_type: r.receipt_type.to_u8(),
             result: r.result.map(as_i64),
             gas_used: r.gas_used.map(as_i64),
@@ -374,7 +374,7 @@ impl From<hyperfuel_format::Input> for Input {
             input_type: i.input_type.as_u8(),
             utxo_id: i.utxo_id.map(|d| d.encode_hex()),
             owner: i.owner.map(|d| d.encode_hex()),
-            amount: i.amount.map(as_i64),
+            amount: i.amount.map(|x| x.to_string()),
             asset_id: i.asset_id.map(|d| d.encode_hex()),
             tx_pointer_block_height: i.tx_pointer_block_height.map(as_i64),
             tx_pointer_tx_index: i.tx_pointer_tx_index.map(as_i64),
@@ -400,7 +400,7 @@ impl From<hyperfuel_format::Output> for Output {
             block_height: as_i64(r.block_height),
             output_type: r.output_type.as_u8(),
             to: r.to.map(|d| d.encode_hex()),
-            amount: r.amount.map(as_i64),
+            amount: r.amount.map(|x| x.to_string()),
             asset_id: r.asset_id.map(|d| d.encode_hex()),
             input_index: r.input_index.map(as_i64),
             balance_root: r.balance_root.map(|d| d.encode_hex()),
