@@ -19,10 +19,10 @@ export interface ReceiptSelection {
   sender?: Array<string>
   recipient?: Array<string>
   contractId?: Array<string>
-  ra?: Array<string>
-  rb?: Array<string>
-  rc?: Array<string>
-  rd?: Array<string>
+  ra?: Array<bigint>
+  rb?: Array<bigint>
+  rc?: Array<bigint>
+  rd?: Array<bigint>
 }
 export interface InputSelection {
   owner?: Array<string>
