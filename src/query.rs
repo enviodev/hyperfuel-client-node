@@ -1,6 +1,45 @@
 use anyhow::{Context, Result};
-use serde::{Deserialize, Serialize};
+use napi::bindgen_prelude::BigInt;
 
+use serde::{Deserialize, Deserializer, Serialize, Serializer};
+
+// Custom serializer function for BigInt<Utc>
+fn serialize_bigint<S>(bigint: &Option<Vec<BigInt>>, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    match bigint {
+        Some(vec) => {
+            let vec_u64: Vec<u64> = vec
+                .iter()
+                .map(|bigint: &BigInt| bigint.get_u64().1)
+                .collect();
+            serializer.serialize_some(&vec_u64)
+        }
+        None => serializer.serialize_none(),
+    }
+}
+fn deserialize_bigint<'de, D>(deserializer: D) -> Result<Option<Vec<BigInt>>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let option_vec_of_u64: Option<Vec<u64>> = Option::deserialize(deserializer)?;
+    match option_vec_of_u64 {
+        Some(vec_of_u64) => {
+            let vec_of_bigint: Vec<BigInt> = vec_of_u64
+                .into_iter()
+                .map(|u64_val: u64| {
+                    u64_val.into()
+                    // u64_val.to_napi_value()
+                })
+                .collect();
+            Ok(Some(vec_of_bigint))
+        }
+        None => Ok(None),
+    }
+}
+
+// TODO: is Deserialize required?
 #[napi(object)]
 #[derive(Default, Serialize, Deserialize, Clone, Debug)]
 pub struct ReceiptSelection {
@@ -19,13 +58,21 @@ pub struct ReceiptSelection {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub contract_id: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ra: Option<Vec<String>>,
+    #[serde(deserialize_with = "deserialize_bigint")]
+    #[serde(serialize_with = "serialize_bigint")]
+    pub ra: Option<Vec<BigInt>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rb: Option<Vec<String>>,
+    #[serde(deserialize_with = "deserialize_bigint")]
+    #[serde(serialize_with = "serialize_bigint")]
+    pub rb: Option<Vec<BigInt>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rc: Option<Vec<String>>,
+    #[serde(deserialize_with = "deserialize_bigint")]
+    #[serde(serialize_with = "serialize_bigint")]
+    pub rc: Option<Vec<BigInt>>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub rd: Option<Vec<String>>,
+    #[serde(deserialize_with = "deserialize_bigint")]
+    #[serde(serialize_with = "serialize_bigint")]
+    pub rd: Option<Vec<BigInt>>,
 }
 
 #[napi(object)]
