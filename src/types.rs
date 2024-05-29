@@ -118,6 +118,8 @@ pub struct Receipt {
     pub root_contract_id: Option<String>,
     /// transaction that this receipt originated from
     pub tx_id: String,
+    /// The status type of the transaction this receipt originated from
+    pub tx_status: u8,
     /// block that the receipt originated in
     pub block_height: i64,
     /// The value of the program counter register $pc, which is the memory address of the current instruction.
@@ -182,6 +184,8 @@ pub struct Receipt {
 pub struct Input {
     /// transaction that this input originated from
     pub tx_id: String,
+    /// The status type of the transaction this receipt originated from
+    pub tx_status: u8,
     /// block that the input originated in
     pub block_height: i64,
     /// InputCoin, InputContract, or InputMessage
@@ -228,6 +232,8 @@ pub struct Input {
 pub struct Output {
     /// transaction that this out originated from
     pub tx_id: String,
+    /// The status type of the transaction this receipt originated from
+    pub tx_status: u8,
     /// block that the output originated in
     pub block_height: i64,
     /// CoinOutput, ContractOutput, ChangeOutput, VariableOutput, or ContractCreated
@@ -335,6 +341,7 @@ impl From<hyperfuel_format::Receipt> for Receipt {
             receipt_index: as_i64(r.receipt_index),
             root_contract_id: r.root_contract_id.map(|d| d.encode_hex()),
             tx_id: r.tx_id.encode_hex(),
+            tx_status: r.tx_status.as_u8(),
             block_height: as_i64(r.block_height),
             pc: r.pc.map(|x| x.to_string()),
             is: r.is.map(|x| x.to_string()),
@@ -411,6 +418,7 @@ impl From<hyperfuel_format::Input> for Input {
     fn from(i: hyperfuel_format::Input) -> Self {
         Self {
             tx_id: i.tx_id.encode_hex(),
+            tx_status: i.tx_status.as_u8(),
             block_height: as_i64(i.block_height),
             input_type: i.input_type.as_u8(),
             utxo_id: i.utxo_id.map(|d| d.encode_hex()),
@@ -439,22 +447,23 @@ impl From<hyperfuel_format::Input> for Input {
 }
 
 impl From<hyperfuel_format::Output> for Output {
-    fn from(r: hyperfuel_format::Output) -> Self {
+    fn from(o: hyperfuel_format::Output) -> Self {
         Self {
-            tx_id: r.tx_id.encode_hex(),
-            block_height: as_i64(r.block_height),
-            output_type: r.output_type.as_u8(),
-            to: r.to.map(|d| d.encode_hex()),
-            amount: r.amount.map(|x| {
+            tx_id: o.tx_id.encode_hex(),
+            tx_status: o.tx_status.as_u8(),
+            block_height: as_i64(o.block_height),
+            output_type: o.output_type.as_u8(),
+            to: o.to.map(|d| d.encode_hex()),
+            amount: o.amount.map(|x| {
                 let as_u64: u64 = *x;
                 let big: BigInt = as_u64.into();
                 big
             }),
-            asset_id: r.asset_id.map(|d| d.encode_hex()),
-            input_index: r.input_index.map(as_i64),
-            balance_root: r.balance_root.map(|d| d.encode_hex()),
-            state_root: r.state_root.map(|d| d.encode_hex()),
-            contract: r.contract.map(|d| d.encode_hex()),
+            asset_id: o.asset_id.map(|d| d.encode_hex()),
+            input_index: o.input_index.map(as_i64),
+            balance_root: o.balance_root.map(|d| d.encode_hex()),
+            state_root: o.state_root.map(|d| d.encode_hex()),
+            contract: o.contract.map(|d| d.encode_hex()),
         }
     }
 }

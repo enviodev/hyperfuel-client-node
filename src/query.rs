@@ -73,6 +73,8 @@ pub struct ReceiptSelection {
     #[serde(deserialize_with = "deserialize_bigint")]
     #[serde(serialize_with = "serialize_bigint")]
     pub rd: Option<Vec<BigInt>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tx_status: Option<Vec<u8>>,
 }
 
 #[napi(object)]
@@ -90,6 +92,8 @@ pub struct InputSelection {
     pub recipient: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub input_type: Option<Vec<u8>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tx_status: Option<Vec<u8>>,
 }
 
 #[napi(object)]
@@ -103,6 +107,8 @@ pub struct OutputSelection {
     pub contract: Option<Vec<String>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub output_type: Option<Vec<u8>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tx_status: Option<Vec<u8>>,
 }
 
 #[napi(object)]

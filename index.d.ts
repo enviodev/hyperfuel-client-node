@@ -23,6 +23,7 @@ export interface ReceiptSelection {
   rb?: Array<bigint>
   rc?: Array<bigint>
   rd?: Array<bigint>
+  txStatus?: Array<number>
 }
 export interface InputSelection {
   owner?: Array<string>
@@ -31,12 +32,14 @@ export interface InputSelection {
   sender?: Array<string>
   recipient?: Array<string>
   inputType?: Array<number>
+  txStatus?: Array<number>
 }
 export interface OutputSelection {
   to?: Array<string>
   assetId?: Array<string>
   contract?: Array<string>
   outputType?: Array<number>
+  txStatus?: Array<number>
 }
 export interface FieldSelection {
   block?: Array<string>
@@ -262,6 +265,8 @@ export interface Receipt {
   rootContractId?: string
   /** transaction that this receipt originated from */
   txId: string
+  /** The status type of the transaction this receipt originated from */
+  txStatus: number
   /** block that the receipt originated in */
   blockHeight: number
   /** The value of the program counter register $pc, which is the memory address of the current instruction. */
@@ -323,6 +328,8 @@ export interface Receipt {
 export interface Input {
   /** transaction that this input originated from */
   txId: string
+  /** The status type of the transaction this receipt originated from */
+  txStatus: number
   /** block that the input originated in */
   blockHeight: number
   /** InputCoin, InputContract, or InputMessage */
@@ -368,6 +375,8 @@ export interface Input {
 export interface Output {
   /** transaction that this out originated from */
   txId: string
+  /** The status type of the transaction this receipt originated from */
+  txStatus: number
   /** block that the output originated in */
   blockHeight: number
   /** CoinOutput, ContractOutput, ChangeOutput, VariableOutput, or ContractCreated */
