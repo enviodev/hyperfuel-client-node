@@ -184,7 +184,7 @@ pub struct Receipt {
 pub struct Input {
     /// transaction that this input originated from
     pub tx_id: String,
-    /// The status type of the transaction this receipt originated from
+    /// The status type of the transaction this input originated from
     pub tx_status: u8,
     /// block that the input originated in
     pub block_height: i64,
@@ -232,7 +232,7 @@ pub struct Input {
 pub struct Output {
     /// transaction that this out originated from
     pub tx_id: String,
-    /// The status type of the transaction this receipt originated from
+    /// The status type of the transaction this output originated from
     pub tx_status: u8,
     /// block that the output originated in
     pub block_height: i64,
