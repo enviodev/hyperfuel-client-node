@@ -1,19 +1,22 @@
 import { HyperfuelClient, Query } from "@envio-dev/hyperfuel-client";
 
 async function main() {
-  // Create hyperfuel client using the hyperfuel endpoint
   const client = HyperfuelClient.new({
-    url: "https://fuel-15.hypersync.xyz"
+    url: "https://fuel-testnet.hypersync.xyz"
   });
 
   const query: Query = {
-    "fromBlock": 7980000,
-    "toBlock": 7980100,
+    // start query from block 0
+    "fromBlock": 0,
+    // if to_block is not set, query runs to the end of the chain
+    "toBlock": 1299067,
+    // which inputs to load data from
     "inputs": [
       {
-        "assetId": ["0x0000000000000000000000000000000000000000000000000000000000000000"]
+        "assetId": ["0x2a0d0ed9d2217ec7f32dcd9a1902ce2a66d68437aeff84e3a3cc8bebee0d2eea"]
       }
     ],
+    // what data we want returned from the inputs we loaded
     "fieldSelection": {
       "input": [
         "tx_id",
