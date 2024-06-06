@@ -9,7 +9,7 @@ async function main() {
     // start query from block 0
     "fromBlock": 0,
     // if to_block is not set, query runs to the end of the chain
-    "toBlock": 1299067,
+    "toBlock": 1300000,
     // which inputs to load data from
     "inputs": [
       {

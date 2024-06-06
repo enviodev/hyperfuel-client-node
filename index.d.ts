@@ -24,6 +24,7 @@ export interface ReceiptSelection {
   rc?: Array<bigint>
   rd?: Array<bigint>
   txStatus?: Array<number>
+  txType?: Array<number>
 }
 export interface InputSelection {
   owner?: Array<string>
@@ -33,6 +34,7 @@ export interface InputSelection {
   recipient?: Array<string>
   inputType?: Array<number>
   txStatus?: Array<number>
+  txType?: Array<number>
 }
 export interface OutputSelection {
   to?: Array<string>
@@ -40,6 +42,7 @@ export interface OutputSelection {
   contract?: Array<string>
   outputType?: Array<number>
   txStatus?: Array<number>
+  txType?: Array<number>
 }
 export interface FieldSelection {
   block?: Array<string>
@@ -267,6 +270,8 @@ export interface Receipt {
   txId: string
   /** The status type of the transaction this receipt originated from */
   txStatus: number
+  /** The type of the transaction this receipt originated from */
+  txType: number
   /** block that the receipt originated in */
   blockHeight: number
   /** The value of the program counter register $pc, which is the memory address of the current instruction. */
@@ -328,8 +333,10 @@ export interface Receipt {
 export interface Input {
   /** transaction that this input originated from */
   txId: string
-  /** The status type of the transaction this receipt originated from */
+  /** The status type of the transaction this input originated from */
   txStatus: number
+  /** The type of the transaction this input originated from */
+  txType: number
   /** block that the input originated in */
   blockHeight: number
   /** InputCoin, InputContract, or InputMessage */
@@ -375,8 +382,10 @@ export interface Input {
 export interface Output {
   /** transaction that this out originated from */
   txId: string
-  /** The status type of the transaction this receipt originated from */
+  /** The status type of the transaction this output originated from */
   txStatus: number
+  /** The type of the transaction this output originated from */
+  txType: number
   /** block that the output originated in */
   blockHeight: number
   /** CoinOutput, ContractOutput, ChangeOutput, VariableOutput, or ContractCreated */
