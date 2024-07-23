@@ -21,12 +21,13 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          - host: macos-latest
+          - host: macos-13
             target: x86_64-apple-darwin
             build: |
               brew install capnp
               yarn set version 3
-              yarn build
+              rustup target install x86_64-apple-darwin
+              yarn build --target x86_64-apple-darwin
               strip -x *.node
           - host: windows-latest
             build: |
@@ -150,7 +151,7 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          - host: macos-latest
+          - host: macos-13
             target: x86_64-apple-darwin
           - host: windows-latest
             target: x86_64-pc-windows-msvc
